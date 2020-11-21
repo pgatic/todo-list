@@ -30,8 +30,8 @@
 
 input[type="checkbox"] {
   /* change "blue" browser chrome to yellow */
-  filter: invert(70%) hue-rotate(90deg) brightness(1.2);
-  transform: scale(2);
+  filter: hue-rotate(300deg) brightness(1.2);
+  transform: scale(1.5);
 }
 
 input:checked + label {

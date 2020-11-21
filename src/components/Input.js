@@ -2,7 +2,7 @@ import React from "react";
 
 const Input = ({ todo, onInputChange, onInputSubmit }) => {
   return (
-    <form className="pa3 black-80" onSubmit={onInputSubmit}>
+    <form className="pa3 black-80 shadow-4" onSubmit={onInputSubmit}>
       <input
         id="todo"
         name="todo"
@@ -13,9 +13,9 @@ const Input = ({ todo, onInputChange, onInputSubmit }) => {
         onChange={onInputChange}
       />
       <input
-        className="w-20 br2 f7 f5-ns input-reset pointer bg-green white dim pv2"
+        className="w-20 br2 f5-ns b-ns input-reset pointer bg-green white dim pv2"
         type="submit"
-        value="Add to list"
+        value="ADD"
       />
     </form>
   );

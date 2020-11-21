@@ -4,7 +4,10 @@ const List = ({ todos, onDelete, onCheck }) => {
   return (
     <div className="pa3 w-100">
       {todos.map((item) => (
-        <div key={item.id} className="flex items-center justify-between mb2">
+        <div
+          key={item.id}
+          className="flex shadow-4 items-center justify-between mb2"
+        >
           <input
             className="mh3"
             type="checkbox"
@@ -12,15 +15,14 @@ const List = ({ todos, onDelete, onCheck }) => {
             onClick={() => onCheck(item.id)}
             defaultChecked={item.checked}
           />
-          <label htmlFor={item.id} className="w-80 fw2 tl ttu">
+          <label htmlFor={item.id} className="w-80 fw3 tl">
             {item.todo}
           </label>
-          <input
-            className="b w-15 br2 ph2 pv2 input-reset ba bg-dark-red white grow pointer f6 mr3 dib"
-            type="submit"
-            value="Delete"
+          <i
+            className="fa fa-trash-o fa-lg dark-red mv2 pointer w-10"
+            aria-hidden="true"
             onClick={() => onDelete(item.id)}
-          ></input>
+          ></i>
         </div>
       ))}
     </div>
