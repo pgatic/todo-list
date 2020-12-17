@@ -46,3 +46,11 @@ input:checked + label {
     transform: rotate(360deg);
   }
 }
+
+.success {
+  background-color: green;
+}
+
+.danger {
+  background-color: red;
+}
