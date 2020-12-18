@@ -17,30 +17,53 @@ function App() {
   const [alert, setAlert] = useState({ show: false, msg: "", type: "" });
   const [todos, setTodos] = useState(getLocalStorage);
   const [todo, setTodo] = useState("");
+  const [isEditing, setIsEditing] = useState(false);
+  const [editId, setEditId] = useState(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (todo) {
+    if (!todo) {
+      showAlert(true, "Can not add empty item!", "danger");
+    } else if (todo && isEditing) {
+      setTodos(
+        todos.map((item) => {
+          if (item.id === editId) {
+            return { ...item, todo };
+          } else {
+            return item;
+          }
+        })
+      );
+      setTodo("");
+      setEditId(null);
+      setIsEditing(false);
+      showAlert(true, "Item updated!", "info");
+    } else {
       const obj = { id: new Date().getTime().toString(), checked: false, todo };
       setTodos([...todos, obj]);
-      showAlert(true, "New todo added!", "success");
+      showAlert(true, "New item added!", "success");
       setTodo("");
-    } else {
-      showAlert(true, "Can not add empty todo!", "danger");
     }
-  };
-
-  const handleDelete = (id) => {
-    const filtered = todos.filter((todo) => todo.id !== id);
-    showAlert(true, "Todo deleted!", "danger");
-    setTodos(filtered);
   };
 
   const handleChange = (e) => {
     setTodo(e.target.value);
   };
 
-  const handleCheck = (id) => {
+  const deleteItem = (id) => {
+    const filtered = todos.filter((todo) => todo.id !== id);
+    showAlert(true, "Item deleted!", "danger");
+    setTodos(filtered);
+  };
+
+  const editItem = (id) => {
+    const itemToEdit = todos.find((todo) => todo.id === id);
+    setIsEditing(true);
+    setEditId(id);
+    setTodo(itemToEdit.todo);
+  };
+
+  const checkItem = (id) => {
     const upd = todos.map((todo) => {
       if (todo.id === id) {
         todo["checked"] = !todo["checked"];
@@ -52,6 +75,11 @@ function App() {
 
   const showAlert = (show = false, msg = "", type = "") => {
     setAlert({ show, msg, type });
+  };
+
+  const clearItems = () => {
+    setTodos([]);
+    showAlert(true, "List is cleared!", "danger");
   };
 
   useEffect(() => {
@@ -70,13 +98,26 @@ function App() {
         todo={todo}
         handleChange={handleChange}
         handleSubmit={handleSubmit}
+        isEditing={isEditing}
       />
       {todos.length > 0 && (
-        <List
-          todos={todos}
-          handleDelete={handleDelete}
-          handleCheck={handleCheck}
-        />
+        <>
+          <List
+            todos={todos}
+            deleteItem={deleteItem}
+            editItem={editItem}
+            checkItem={checkItem}
+            editId={editId}
+          />
+          <div>
+            <button
+              onClick={clearItems}
+              className="link bn bg-white black dim f4 fw6 pointer"
+            >
+              Clear All
+            </button>
+          </div>
+        </>
       )}
     </div>
   );

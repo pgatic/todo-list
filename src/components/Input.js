@@ -1,6 +1,7 @@
 import React from "react";
 
-const Input = ({ todo, handleChange, handleSubmit }) => {
+const Input = ({ todo, handleChange, handleSubmit, isEditing }) => {
+  let buttonBg = isEditing ? "gold" : "green";
   return (
     <form className="pa3 black-80 shadow-4" onSubmit={handleSubmit}>
       <input
@@ -13,9 +14,9 @@ const Input = ({ todo, handleChange, handleSubmit }) => {
         onChange={handleChange}
       />
       <input
-        className="w-20 br2 f5-ns b-ns input-reset pointer bg-green white dim pv2"
+        className={`w-20 br2 f5-ns b-ns input-reset pointer bg-${buttonBg} white grow pv2`}
         type="submit"
-        value="ADD"
+        value={isEditing ? "EDIT" : "ADD"}
       />
     </form>
   );

@@ -7,7 +7,7 @@ const Alert = ({ msg, type, removeAlert, todos }) => {
     }, 3000);
   }, [todos]);
 
-  return <p className={`${type} pv1 white`}>{msg}</p>;
+  return <p className={`${type} w-75 center br2 o-70 pv1 white`}>{msg}</p>;
 };
 
 export default Alert;

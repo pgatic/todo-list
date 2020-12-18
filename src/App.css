@@ -54,3 +54,7 @@ input:checked + label {
 .danger {
   background-color: red;
 }
+
+.info {
+  background-color: orange;
+}
